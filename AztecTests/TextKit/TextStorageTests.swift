@@ -469,7 +469,7 @@ class TextStorageTests: XCTestCase {
         let html = """
 <ul class="wp-block-gallery alignnone columns-1 is-cropped">
   <li class="blocks-gallery-item">
-    <figure><img src="https://sandbox.koke.me/wp-content/uploads/2018/05/fullsizeoutput_52f7.jpeg" class="alignnone" data-id="96" alt=""></figure>
+    <figure><img src="https://sandbox.koke.me/wp-content/uploads/2018/05/fullsizeoutput_52f7.jpeg" class="alignnone" alt="" data-id="96"></figure>
   </li>
 </ul>
 """

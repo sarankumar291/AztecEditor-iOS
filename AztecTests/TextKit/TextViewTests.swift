@@ -1666,7 +1666,7 @@ class TextViewTests: XCTestCase {
         let html = "<img src=\"image.jpg\" class=\"alignnone\" alt=\"Alt\" title=\"Title\">"
         let textView = TextViewStub(withHTML: html)
 
-        XCTAssertEqual(textView.getHTML(), "<p><img src=\"image.jpg\" class=\"alignnone\" title=\"Title\" alt=\"Alt\"></p>")
+        XCTAssertEqual(textView.getHTML(), "<p><img src=\"image.jpg\" class=\"alignnone\" alt=\"Alt\" title=\"Title\"></p>")
 
         guard let attachment = textView.storage.mediaAttachments.first as? ImageAttachment else {
             XCTFail("An video attachment should be present")
@@ -1678,7 +1678,7 @@ class TextViewTests: XCTestCase {
         attachment.extraAttributes["alt"] = "Changed Alt"
         attachment.extraAttributes["class"] = "wp-image-169"
 
-        XCTAssertEqual(textView.getHTML(), "<p><img src=\"image.jpg\" class=\"alignnone wp-image-169\" title=\"Title\" alt=\"Changed Alt\"></p>")
+        XCTAssertEqual(textView.getHTML(), "<p><img src=\"image.jpg\" class=\"alignnone wp-image-169\" alt=\"Changed Alt\" title=\"Title\"></p>")
     }
 
 
@@ -1708,7 +1708,7 @@ class TextViewTests: XCTestCase {
     /// This test verifies that img class attributes are not duplicated
     ///
     func testParseImageDoesntDuplicateExtraAttributes() {
-        let html = "<img src=\"image.jpg\" class=\"alignnone wp-image-test\" title=\"Title\" alt=\"Alt\">"
+        let html = "<img src=\"image.jpg\" class=\"wp-image-test alignnone\" alt=\"Alt\" title=\"Title\">"
         let textView = TextViewStub(withHTML: html)
         let generatedHTML = textView.getHTML()
 
