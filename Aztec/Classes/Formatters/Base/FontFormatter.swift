@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class FontFormatter: AttributeFormatter {
+public class FontFormatter: AttributeFormatter {
     
     let htmlRepresentationKey: NSAttributedStringKey
     let traits: UIFontDescriptorSymbolicTraits
@@ -11,15 +11,15 @@ class FontFormatter: AttributeFormatter {
         self.traits = traits
     }
 
-    func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
+    public func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
         return range
     }
 
-    func worksInEmptyRange() -> Bool {
+    public func worksInEmptyRange() -> Bool {
         return false
     }
 
-    func apply(to attributes: [NSAttributedStringKey: Any], andStore representation: HTMLRepresentation?) -> [NSAttributedStringKey: Any] {
+    public func apply(to attributes: [NSAttributedStringKey: Any], andStore representation: HTMLRepresentation?) -> [NSAttributedStringKey: Any] {
 
         guard let font = attributes[.font] as? UIFont else {
             return attributes
@@ -35,7 +35,7 @@ class FontFormatter: AttributeFormatter {
         return resultingAttributes
     }
 
-    func remove(from attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any] {
+    public func remove(from attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any] {
         var resultingAttributes = attributes
         
         resultingAttributes.removeValue(forKey: htmlRepresentationKey)
@@ -49,7 +49,7 @@ class FontFormatter: AttributeFormatter {
         return resultingAttributes
     }
 
-    func present(in attributes: [NSAttributedStringKey : Any]) -> Bool {
+    public func present(in attributes: [NSAttributedStringKey : Any]) -> Bool {
         guard let font = attributes[.font] as? UIFont else {
             return false
         }

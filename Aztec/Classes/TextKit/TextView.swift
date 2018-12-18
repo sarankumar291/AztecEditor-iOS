@@ -187,7 +187,27 @@ open class TextView: UITextView {
         }
     }
     
-    // MARK: - Behavior configuration
+    // MARK: - Formatters
+    
+    public let blockquoteFormatter = BlockquoteFormatter()
+    public let boldFormatter = BoldFormatter()
+    public let citeFormatter = CiteFormatter()
+    public let h1Formatter = HeaderFormatter(headerLevel: .h1)
+    
+    public lazy var formatVerifiers: [FormattingIdentifier: AttributeFormatter] = [
+        .blockquote: blockquoteFormatter,
+        .bold: boldFormatter,
+    ]
+    
+    public lazy var formatAppliers: [FormattingIdentifier: [AttributeFormatter]] = [
+        .blockquote: [blockquoteFormatter],
+        .bold: [boldFormatter],
+    ]
+    
+    public lazy var formatRemovers: [FormattingIdentifier: [AttributeFormatter]] = [
+        .blockquote: [blockquoteFormatter, citeFormatter],
+        .bold: [boldFormatter],
+    ]
     
     private static let singleLineParagraphFormatters: [AttributeFormatter] = [
         HeaderFormatter(headerLevel: .h1),

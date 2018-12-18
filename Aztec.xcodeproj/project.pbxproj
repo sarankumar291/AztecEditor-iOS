@@ -200,6 +200,10 @@
 		F1E75632215B0CB7004BC254 /* BoldStringAttributeConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E75631215B0CB7004BC254 /* BoldStringAttributeConverterTests.swift */; };
 		F1E75634215B0FC7004BC254 /* ItalicStringAttributeConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E75633215B0FC7004BC254 /* ItalicStringAttributeConverterTests.swift */; };
 		F1E75636215B106C004BC254 /* UnderlineStringAttributeConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E75635215B106C004BC254 /* UnderlineStringAttributeConverterTests.swift */; };
+		F1EB81CC21C943420006C537 /* AttributeRanger.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB81CB21C943420006C537 /* AttributeRanger.swift */; };
+		F1EB81CE21C943740006C537 /* AttributeApplier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB81CD21C943740006C537 /* AttributeApplier.swift */; };
+		F1EB81D021C9442E0006C537 /* AttributeVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB81CF21C9442E0006C537 /* AttributeVerifier.swift */; };
+		F1EB81D221C9449C0006C537 /* AttributeRemover.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EB81D121C9449C0006C537 /* AttributeRemover.swift */; };
 		F1EBEDA921C2F1D00023B751 /* UITextView+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1EBEDA821C2F1D00023B751 /* UITextView+Delegate.swift */; };
 		F1F5C9DB21516E4B00F67990 /* ItalicCSSAttributeMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F5C9DA21516E4B00F67990 /* ItalicCSSAttributeMatcher.swift */; };
 		F1F5C9DD2151702600F67990 /* UnderlineCSSAttributeMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F5C9DC2151702600F67990 /* UnderlineCSSAttributeMatcher.swift */; };
@@ -468,6 +472,10 @@
 		F1E75631215B0CB7004BC254 /* BoldStringAttributeConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldStringAttributeConverterTests.swift; sourceTree = "<group>"; };
 		F1E75633215B0FC7004BC254 /* ItalicStringAttributeConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalicStringAttributeConverterTests.swift; sourceTree = "<group>"; };
 		F1E75635215B106C004BC254 /* UnderlineStringAttributeConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineStringAttributeConverterTests.swift; sourceTree = "<group>"; };
+		F1EB81CB21C943420006C537 /* AttributeRanger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeRanger.swift; sourceTree = "<group>"; };
+		F1EB81CD21C943740006C537 /* AttributeApplier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeApplier.swift; sourceTree = "<group>"; };
+		F1EB81CF21C9442E0006C537 /* AttributeVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeVerifier.swift; sourceTree = "<group>"; };
+		F1EB81D121C9449C0006C537 /* AttributeRemover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeRemover.swift; sourceTree = "<group>"; };
 		F1EBEDA821C2F1D00023B751 /* UITextView+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Delegate.swift"; sourceTree = "<group>"; };
 		F1F5C9DA21516E4B00F67990 /* ItalicCSSAttributeMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItalicCSSAttributeMatcher.swift; sourceTree = "<group>"; };
 		F1F5C9DC2151702600F67990 /* UnderlineCSSAttributeMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlineCSSAttributeMatcher.swift; sourceTree = "<group>"; };
@@ -945,7 +953,11 @@
 		F12F58501EF20394008AE298 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				F1EB81CD21C943740006C537 /* AttributeApplier.swift */,
+				F1EB81CB21C943420006C537 /* AttributeRanger.swift */,
+				F1EB81D121C9449C0006C537 /* AttributeRemover.swift */,
 				F12F58511EF20394008AE298 /* AttributeFormatter.swift */,
+				F1EB81CF21C9442E0006C537 /* AttributeVerifier.swift */,
 				F18986E01EF2040A0060EDBA /* FontFormatter.swift */,
 				F12F58531EF20394008AE298 /* ParagraphAttributeFormatter.swift */,
 				F12F58541EF20394008AE298 /* StandardAttributeFormatter.swift */,
@@ -1515,6 +1527,7 @@
 				F1C05B9F1E37FD2F007510EA /* NSAttributedString+CharacterName.swift in Sources */,
 				F1AFD65920B45E5700CB0279 /* HTMLAttachmentRenderer.swift in Sources */,
 				FF20D6411EDC389A00294B78 /* HTMLProcessor.swift in Sources */,
+				F1EB81D021C9442E0006C537 /* AttributeVerifier.swift in Sources */,
 				B5C99D3F1E72E2E700335355 /* UIStackView+Helpers.swift in Sources */,
 				F1C05B991E37F99D007510EA /* Character+Name.swift in Sources */,
 				FF20D6421EDC389A00294B78 /* Processor.swift in Sources */,
@@ -1538,8 +1551,10 @@
 				F12F58631EF20394008AE298 /* AttributeFormatter.swift in Sources */,
 				F19544051F588F1A00671B73 /* CSSParser.swift in Sources */,
 				599F254E1D8BC9A1002871D6 /* FormatBarDelegate.swift in Sources */,
+				F1EB81D221C9449C0006C537 /* AttributeRemover.swift in Sources */,
 				F109873F214FF4C400983B6A /* ElementAttributeConverter.swift in Sources */,
 				B5375F471EC2566200F5D7EC /* String+HTML.swift in Sources */,
+				F1EB81CC21C943420006C537 /* AttributeRanger.swift in Sources */,
 				F165D92A20C72EF500EAA6B0 /* Array+ShortcodeAttribute.swift in Sources */,
 				F165D92420C72C1000EAA6B0 /* ShortcodeAttributeSerializer.swift in Sources */,
 				F177FF751FB6404D00CBBE35 /* UILayoutPriority+Swift4.swift in Sources */,
@@ -1620,6 +1635,7 @@
 				F13CE5401F4DD08E0043368D /* RegexProcessor.swift in Sources */,
 				40A298731FD61E1900AEDF3B /* VideoElementConverter.swift in Sources */,
 				FF24AC991F0146AF003CA91D /* Assets.swift in Sources */,
+				F1EB81CE21C943740006C537 /* AttributeApplier.swift in Sources */,
 				599F254D1D8BC9A1002871D6 /* FormatBar.swift in Sources */,
 				F1FA0E881E6EF514009D98EE /* TextNode.swift in Sources */,
 				599F253A1D8BC9A1002871D6 /* InNodeConverter.swift in Sources */,

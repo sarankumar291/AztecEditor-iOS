@@ -5,7 +5,7 @@ protocol ParagraphAttributeFormatter: AttributeFormatter {
 
 extension ParagraphAttributeFormatter {
 
-    func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
+    public func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
         return text.paragraphRange(for: range)
     }
 
@@ -14,7 +14,7 @@ extension ParagraphAttributeFormatter {
     /// - Returns: the full range where the attributes where applied
     ///
     @discardableResult
-    func applyAttributes(to text: NSMutableAttributedString, at range: NSRange) -> NSRange {
+    public func applyAttributes(to text: NSMutableAttributedString, at range: NSRange) -> NSRange {
         let rangeToApply = applicationRange(for: range, in: text)
 
         text.replaceOcurrences(of: String(.lineFeed), with: String(.paragraphSeparator), within: rangeToApply)
@@ -33,7 +33,7 @@ extension ParagraphAttributeFormatter {
     /// - Returns: the full range where the attributes where removed
     ///
     @discardableResult
-    func removeAttributes(from text: NSMutableAttributedString, at range: NSRange) -> NSRange {
+    public func removeAttributes(from text: NSMutableAttributedString, at range: NSRange) -> NSRange {
         let rangeToApply = applicationRange(for: range, in: text)
 
         text.replaceOcurrences(of: String(.paragraphSeparator), with: String(.lineFeed), within: rangeToApply)
@@ -48,7 +48,7 @@ extension ParagraphAttributeFormatter {
         return rangeToApply
     }
     
-    func worksInEmptyRange() -> Bool {
-        return true
+    public func worksInEmptyRange() -> Bool {
+        return false
     }
 }

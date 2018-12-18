@@ -7,7 +7,7 @@ import UIKit
 /// attribute, it is useful to have a virtual attribute. 
 /// Toggling this attribute would also toggle the attributes for its defined style.
 ///
-protocol AttributeFormatter {
+public protocol AttributeFormatter: AttributeApplier, AttributeRemover, AttributeVerifier {
 
     /// Toggles an attribute in the specified range of a text storage, and returns the new 
     /// Selected Range. This is required because, in several scenarios, we may need to add a "Zero Width Space",
@@ -19,56 +19,15 @@ protocol AttributeFormatter {
     ///
     /// - Returns: the full range where the toggle was applied
     ///
-    @discardableResult func toggle(in text: NSMutableAttributedString, at range: NSRange) -> NSRange
+    @discardableResult
+    func toggle(in text: NSMutableAttributedString, at range: NSRange) -> NSRange
 
     /// Apply or removes formatter attributes to the provided attribute dictionary and returns it.
     ///
     /// - Parameter attributes: attributes to be checked.
     /// - Returns: the new attribute dictionary with the toggle applied.
-    @discardableResult func toggle(in attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any]
-
-    /// Checks if the attribute is present in a given Attributed String at the specified index.
-    ///
-    func present(in text: NSAttributedString, at index: Int) -> Bool
-
-    /// Apply the compound attributes to the provided attributes dictionary.
-    ///
-    /// - Parameter attributes: the original attributes to apply to
-    /// - Returns: the resulting attributes dictionary
-    ///
-    func apply(to attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any]
-
-    /// Apply the compound attributes to the provided attributes dictionary.
-    ///
-    /// - Parameters:
-    ///     - attributes: the original attributes to apply to
-    ///     - representation: the original HTML representation for the attribute to apply.
-    ///
-    /// - Returns:
-    ///     - the resulting attributes dictionary
-    ///
-    func apply(to attributes: [NSAttributedStringKey: Any], andStore representation: HTMLRepresentation?) -> [NSAttributedStringKey: Any]
-
-    /// Remove the compound attributes from the provided list.
-    ///
-    /// - Parameter attributes: the original attributes to remove from
-    /// - Returns: the resulting attributes dictionary
-    ///
-    func remove(from attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any]
-
-    /// Applies the Formatter's Attributes into a given string, at the specified range.
-    ///
-    @discardableResult func applyAttributes(to string: NSMutableAttributedString, at range: NSRange) -> NSRange
-
-    /// Removes the Formatter's Attributes from a given string, at the specified range.
-    ///
-    @discardableResult func removeAttributes(from string: NSMutableAttributedString, at range: NSRange) -> NSRange
-
-    /// Checks if the attribute is present in a dictionary of attributes.
-    ///
-    func present(in attributes: [NSAttributedStringKey: Any]) -> Bool
-
-    func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange
+    @discardableResult
+    func toggle(in attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any]
 
     func worksInEmptyRange() -> Bool
 }
@@ -78,47 +37,8 @@ protocol AttributeFormatter {
 //
 extension AttributeFormatter {
 
-    /// The default implementation forwards the call.  This is probably good enough for all
-    /// classes that implement this protocol.
-    ///
-    func apply(to attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any] {
-        return apply(to: attributes, andStore: nil)
-    }
-
-    /// Indicates whether the Formatter's Attributes are present in a given string, at a specified Index.
-    ///
-    func present(in text: NSAttributedString, at index: Int) -> Bool {
-        let safeIndex = max(min(index, text.length - 1), 0)
-        let attributes = text.attributes(at: safeIndex, effectiveRange: nil)
-        return present(in: attributes)
-    }
-
-    /// Indicates whether the Formatter's Attributes are present in the full range provided
-    ///
-    /// - Parameters:
-    ///   - text: the attributed string to inspect for the attribute
-    ///   - range: the range to inspect
-    ///
-    /// - Returns: true if the attributes exists on all of the range
-    ///
-    func present(in text: NSAttributedString, at range: NSRange) -> Bool {
-        if range.length == 0 {
-            return present(in: text, at: range.location)
-        }
-        var result = true
-        var enumerateAtLeastOnce = false
-        text.enumerateAttributes(in: range, options: []) { (attributes, range, stop) in
-            enumerateAtLeastOnce = true
-            result = present(in: attributes) && result
-            if !result {
-                stop.pointee = true
-            }
-        }
-        return result && enumerateAtLeastOnce
-    }
-
     @discardableResult
-    func toggle(in attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any] {
+    public func toggle(in attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any] {
         if present(in: attributes) {
             return remove(from: attributes)
         } else {
@@ -126,50 +46,10 @@ extension AttributeFormatter {
         }
     }
 
-    /// Applies the Formatter's Attributes into a given string, at the specified range.
-    ///
-    /// - Returns: the full range where the attributes where applied
-    ///
-    @discardableResult
-    func applyAttributes(to text: NSMutableAttributedString, at range: NSRange) -> NSRange {
-        let rangeToApply = applicationRange(for: range, in: text)
-
-        text.enumerateAttributes(in: rangeToApply, options: []) { (attributes, range, _) in
-            let currentAttributes = text.attributes(at: range.location, effectiveRange: nil)
-            let attributes = apply(to: currentAttributes)
-            text.addAttributes(attributes, range: range)
-        }
-
-        return rangeToApply
-    }
-
-    /// Removes the Formatter's Attributes from a given string, at the specified range.
-    ///
-    /// - Returns: the full range where the attributes where removed
-    ///
-    @discardableResult
-    func removeAttributes(from text: NSMutableAttributedString, at range: NSRange) -> NSRange {
-        let rangeToApply = applicationRange(for: range, in: text)
-        text.enumerateAttributes(in: rangeToApply, options: []) { (attributes, range, stop) in
-            let currentAttributes = text.attributes(at: range.location, effectiveRange: nil)
-            let attributes = remove(from: currentAttributes)
-
-            let currentKeys = Set(currentAttributes.keys)
-            let newKeys = Set(attributes.keys)
-            let removedKeys = currentKeys.subtracting(newKeys)
-            for key in removedKeys {
-                text.removeAttribute(key, range: range)
-            }
-
-            text.addAttributes(attributes, range: range)
-        }
-        return rangeToApply
-    }
-
     /// Toggles the Attribute Format, into a given string, at the specified range.
     ///
     @discardableResult
-    func toggle(in text: NSMutableAttributedString, at range: NSRange) -> NSRange {
+    public func toggle(in text: NSMutableAttributedString, at range: NSRange) -> NSRange {
         //We decide if we need to apply or not the attribute based on the value on the initial position of the range
         let shouldApply = shouldApplyAttributes(to: text, at: range)
 

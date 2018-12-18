@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class CiteFormatter: FontFormatter {
+public class CiteFormatter: FontFormatter {
     
     // MARK: - Init
 
@@ -9,7 +9,7 @@ class CiteFormatter: FontFormatter {
         super.init(traits: .traitItalic, htmlRepresentationKey: .citeHtmlRepresentation)
     }
     
-    override func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
+    override public func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
         var effectiveRange = NSRange()
         
         let location = min(range.location, max(text.length - 1, 0))
