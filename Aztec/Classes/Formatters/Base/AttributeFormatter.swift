@@ -26,10 +26,9 @@ public protocol AttributeFormatter: AttributeApplier, AttributeRemover, Attribut
     ///
     /// - Parameter attributes: attributes to be checked.
     /// - Returns: the new attribute dictionary with the toggle applied.
+
     @discardableResult
     func toggle(in attributes: [NSAttributedStringKey: Any]) -> [NSAttributedStringKey: Any]
-
-    func worksInEmptyRange() -> Bool
 }
 
 

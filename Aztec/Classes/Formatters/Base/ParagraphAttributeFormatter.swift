@@ -47,8 +47,4 @@ extension ParagraphAttributeFormatter {
 
         return rangeToApply
     }
-    
-    public func worksInEmptyRange() -> Bool {
-        return false
-    }
 }
