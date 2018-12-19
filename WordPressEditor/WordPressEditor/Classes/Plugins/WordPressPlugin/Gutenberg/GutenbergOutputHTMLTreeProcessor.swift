@@ -51,7 +51,7 @@ public class GutenbergOutputHTMLTreeProcessor: HTMLTreeProcessor {
     private func process(paragraph: ElementNode) -> [Node] {
         var children = ArraySlice<Node>(paragraph.children)
         var result = [Node]()
-        
+
         while let (index, gutenpack) = nextGutenpack(in: children) {
             let nodesBeforeGutenpack = children.prefix(upTo: index)
 

@@ -2,6 +2,8 @@ import Foundation
 
 public protocol AttributeRemover: AttributeRanger {
     
+    var ranger: AttributeRanger { get }
+    
     /// Remove the compound attributes from the provided list.
     ///
     /// - Parameter attributes: the original attributes to remove from

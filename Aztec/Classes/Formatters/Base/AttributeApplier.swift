@@ -1,6 +1,9 @@
 import Foundation
 
-public protocol AttributeApplier: AttributeRanger {
+public protocol AttributeApplier {
+    
+    var ranger: AttributeRanger { get }
+    
     /// Apply the compound attributes to the provided attributes dictionary.
     ///
     /// - Parameter attributes: the original attributes to apply to

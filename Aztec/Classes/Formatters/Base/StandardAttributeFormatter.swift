@@ -1,11 +1,38 @@
 import Foundation
 import UIKit
 
+class StandardAttributeApplier: AttributeApplier {
+    func apply(to attributes: [NSAttributedStringKey : Any], andStore representation: HTMLRepresentation?) -> [NSAttributedStringKey : Any] {
+        <#code#>
+    }
+    
+    func applicationRange(for range: NSRange, in text: NSAttributedString) -> NSRange {
+        <#code#>
+    }
+    
+    
+}
+
+class StandardAttributeRemover: AttributeRemover {
+    
+}
+
 /// Formatter to apply simple value (NSNumber, UIColor) attributes to an attributed string. 
 class StandardAttributeFormatter: AttributeFormatter {
-
-    var placeholderAttributes: [NSAttributedStringKey: Any]? { return nil }
-
+    
+    let standardAttributeApplier: StandardAttributeApplier
+    let standardAttributeRemover: StandardAttributeRemover
+    
+    var applier: AttributeApplier {
+        return standardAttributeApplier
+    }
+    
+    var remover: AttributeRemover {
+        return standardAttributeRemover
+    }
+    
+    var verifier: AttributeVerifier
+    
     let attributeKey: NSAttributedStringKey
     var attributeValue: Any
 

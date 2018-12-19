@@ -954,9 +954,9 @@
 			isa = PBXGroup;
 			children = (
 				F1EB81CD21C943740006C537 /* AttributeApplier.swift */,
+				F12F58511EF20394008AE298 /* AttributeFormatter.swift */,
 				F1EB81CB21C943420006C537 /* AttributeRanger.swift */,
 				F1EB81D121C9449C0006C537 /* AttributeRemover.swift */,
-				F12F58511EF20394008AE298 /* AttributeFormatter.swift */,
 				F1EB81CF21C9442E0006C537 /* AttributeVerifier.swift */,
 				F18986E01EF2040A0060EDBA /* FontFormatter.swift */,
 				F12F58531EF20394008AE298 /* ParagraphAttributeFormatter.swift */,

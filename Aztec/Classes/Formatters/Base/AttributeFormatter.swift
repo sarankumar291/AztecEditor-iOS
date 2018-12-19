@@ -7,7 +7,11 @@ import UIKit
 /// attribute, it is useful to have a virtual attribute. 
 /// Toggling this attribute would also toggle the attributes for its defined style.
 ///
-public protocol AttributeFormatter: AttributeApplier, AttributeRemover, AttributeVerifier {
+public protocol AttributeFormatter {
+    
+    var applier: AttributeApplier { get }
+    var remover: AttributeRemover { get }
+    var verifier: AttributeVerifier { get }
 
     /// Toggles an attribute in the specified range of a text storage, and returns the new 
     /// Selected Range. This is required because, in several scenarios, we may need to add a "Zero Width Space",
