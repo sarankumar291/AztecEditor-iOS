@@ -162,6 +162,9 @@ open class TextView: UITextView {
     open let defaultParagraphStyle: ParagraphStyle
     var defaultMissingImage: UIImage
     
+    //Blocking paste variable
+    open var isPasteOptionAvailable: Bool = true
+    
     fileprivate var defaultAttributes: [NSAttributedStringKey: Any] {
         let attributes: [NSAttributedStringKey: Any] = [
             .font: defaultFont,
@@ -487,6 +490,9 @@ open class TextView: UITextView {
     /// - Returns: True if this method succeeds.
     ///
     private func tryPastingString() -> Bool {
+        if UIPasteboard.general.hasImages && isPasteOptionAvailable == false {
+            return true
+        }
         guard let string = UIPasteboard.general.attributedString() else {
             return false
         }
@@ -1862,6 +1868,21 @@ open class TextView: UITextView {
 
         return attachment
     }
+    
+    //Blocking the paste option
+    open override func target(forAction action: Selector, withSender sender: Any?) -> Any? {
+        if #available(iOS 10, *) {
+            if action == #selector(UIResponderStandardEditActions.paste(_:)) && isPasteOptionAvailable == false {
+                return nil
+            }
+        } else {
+            if action == #selector(paste(_:)) && isPasteOptionAvailable == false {
+                return nil
+            }
+        }
+        return super.target(forAction: action, withSender: sender)
+    }
+
 }
 
 // MARK: - Single line attributes removal
